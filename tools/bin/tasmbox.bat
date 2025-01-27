@@ -13,7 +13,8 @@ echo type tasmbox.out >>tasm.dosbox.conf
 echo pause >>tasm.dosbox.conf
 echo :noerror >>tasm.dosbox.conf
 echo exit >>tasm.dosbox.conf
-dosbox -conf tasm.dosbox.conf
+set SDL_VIDEODRIVER=dummy
+dosbox -conf tasm.dosbox.conf -noconsole
 del tasm.dosbox.conf 2>nul
 type tasmbox.out
 del tasmbox.out 2>nul
