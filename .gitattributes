@@ -1,0 +1,6 @@
+*.c text=crlf
+*.h text=crlf
+*.asm text=crlf
+*.inc text=crlf
+*.ASM text=crlf
+*.INC text=crlf
