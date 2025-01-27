@@ -6,6 +6,7 @@ echo MOUNT S S:\ >>tasm.dosbox.conf
 echo S: >>tasm.dosbox.conf
 echo SET PATH=%%PATH%%;s:\tools\bin >>tasm.dosbox.conf
 echo cd %CD% >>tasm.dosbox.conf
+echo del %5 >>tasm.dosbox.conf
 echo tasmx %* ^>tasmbox.out >>tasm.dosbox.conf
 echo if ERRORLEVEL 0 goto noerror >>tasm.dosbox.conf
 echo type tasmbox.out >>tasm.dosbox.conf
