@@ -1287,16 +1287,22 @@ void init_main(int argc, char* argv[])
 					break;
 
 				case 's':
-					if ((((g_ascii_props[argv[i][2]] & RST_ASC_CHAR_UPPER) ? (argv[i][2] + ' ') : (argv[i][2])) == 's')
-					 && (((g_ascii_props[argv[i][3]] & RST_ASC_CHAR_UPPER) ? (argv[i][3] + ' ') : (argv[i][3])) == 'b')) {
-						audiodriverstring[0] = argv[i][2];
-						audiodriverstring[1] = argv[i][3];
-					}
-					else {
+				if (strlen(argv[i]) >= 4) {
+					if (
+						   (argv[i][2] == 'S' || argv[i][2] == 's')
+						&& (argv[i][3] == 'B' || argv[i][3] == 'b'))
+					{
+						// We do not have Sound Blaster drivers.
+						// Replace them with Adlib
 						audiodriverstring[0] = 'a';
 						audiodriverstring[1] = 'd';
 					}
+					else {
+						audiodriverstring[0] = argv[i][2];
+						audiodriverstring[1] = argv[i][3];
+					}
 					break;
+				}
 			}
 		}
 	}
@@ -1317,7 +1323,7 @@ void init_main(int argc, char* argv[])
 	mouse_init(0x0140, 0x00C8);
 
 	// Audio driver.
-	if (audio_load_driver(&audiodriverstring, 0, 0)) {
+	if (audio_load_driver(audiodriverstring, 0, 0)) {
 		audio_stop_unk();
 		libsub_quit_to_dos_alt(1);
 	}
