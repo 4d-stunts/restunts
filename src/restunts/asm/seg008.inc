@@ -56,7 +56,7 @@ seg008 segment byte public 'STUNTSC' use16
     extrn do_mof_restext:proc
     extrn do_sonsof_restext:proc
     extrn do_dos_restext:proc
-    extrn do_mrl_textres:proc
+    extrn show_graphic_levels_menu:proc
     extrn do_dea_textres:proc
     extrn ensure_file_exists:proc
     extrn do_mer_restext:proc

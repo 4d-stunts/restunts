@@ -3030,8 +3030,8 @@ run_car_menu proc far
     mov     [bp+var_transshape.ts_rotvec.vx], 0
     mov     [bp+var_transshape.ts_rotvec.vy], 0
     mov     [bp+var_transshape.ts_unk], 7530h
-    mov     ax, timertestflag
-    mov     timertestflag_copy, ax
+    mov     ax, slow_video_mgmt
+    mov     slow_video_mgmt_copy, ax
     or      ax, ax
     jz      short loc_11C82
     lea     ax, [bp+var_10_rc]
@@ -3779,7 +3779,7 @@ loc_12423:
     call    polarAngle
     add     sp, 4
     mov     [bp+var_carpospolarangle], ax
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_12448
     push    si
     lea     di, [bp+var_10_rc]
@@ -5089,7 +5089,7 @@ loc_130E2:
     mov     [bp+var_4], 1
     jmp     short loc_13163
 loc_13134:
-    call    do_mrl_textres
+    call    show_graphic_levels_menu
     jmp     short loc_1315A
     ; align 2
     db 144

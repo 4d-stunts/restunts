@@ -16,3 +16,13 @@ replace () {
 	done
 }
 
+replace byte_3C09C detail_threshold_by_level
+replace off_3C084 lookahead_tiles_tables
+replace timertestflag2 detail_level
+replace transformed_shape_op_helper2 projectiondata9_times_ratio
+replace transformed_shape_op_helper3 is_facing_camera
+replace transformed_shape_op_helper insert_newest_poly_in_poly_linked_list_40ED6
+replace word_40ED6 poly_linked_list_40ED6
+replace word_45D98 poly_linked_list_40ED6_tail
+replace timertestflag slow_video_mgmt
+replace do_mrl_textres show_graphic_levels_menu

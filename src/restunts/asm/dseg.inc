@@ -39,7 +39,7 @@ dseg segment byte public 'STUNTSD' use16
     extrn byte_3B8F7:byte
     extrn kbormouse:byte
     extrn mouse_isdirty:byte
-    extrn timertestflag2:byte
+    extrn detail_level:byte
     extrn g_is_busy:byte
     extrn byte_3B8FC:byte
     extrn aKevin:byte
@@ -252,9 +252,9 @@ dseg segment byte public 'STUNTSD' use16
     extrn unk_3C03E:byte
     extrn unk_3C071:byte
     extrn unk_3C072:byte
-    extrn off_3C084:word
+    extrn lookahead_tiles_tables:word
     extrn rect_unk5:RECTANGLE
-    extrn byte_3C09C:byte
+    extrn detail_threshold_by_level:byte
     extrn unk_3C0A2:byte
     extrn unk_3C0A6:byte
     extrn unk_3C0AE:byte
@@ -1051,7 +1051,7 @@ dseg segment byte public 'STUNTSD' use16
     extrn word_40ECE:word
     extrn select_rect_param:word
     extrn polyinfoptr:dword
-    extrn word_40ED6:word
+    extrn poly_linked_list_40ED6:word
     extrn word_411F6:word
     extrn polyinfoptrs:dword
     extrn mat_y0:MATRIX
@@ -1218,7 +1218,7 @@ dseg segment byte public 'STUNTSD' use16
     extrn oppcarshapevecs2:VECTOR
     extrn oppcarshapevecs3:VECTOR
     extrn oppcarshapevecs4:VECTOR
-    extrn timertestflag_copy:word
+    extrn slow_video_mgmt_copy:word
     extrn pState_minusRotate_x_1:word
     extrn elRdWallRelated:word
     extrn regs_x86:REGS
@@ -1272,7 +1272,7 @@ dseg segment byte public 'STUNTSD' use16
     extrn idle_expired:byte
     extrn video_flag1_is1:word
     extrn td11_highscores:dword
-    extrn timertestflag:word
+    extrn slow_video_mgmt:word
     extrn mainresptr:dword
     extrn bravshape:SHAPE3D
     extrn byte_44D06:byte
@@ -1388,7 +1388,7 @@ dseg segment byte public 'STUNTSD' use16
     extrn material_patlist2_ptr_cpy:word
     extrn word_45D94:word
     extrn wallOrientation:word
-    extrn word_45D98:word
+    extrn poly_linked_list_40ED6_tail:word
     extrn byte_45D9A:byte
     extrn game_replay_mode:byte
     extrn td08_direction_related:dword

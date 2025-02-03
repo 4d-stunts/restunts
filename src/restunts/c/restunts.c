@@ -354,7 +354,7 @@ extern struct RECTANGLE cliprect_unk;
 
 extern int polyinfonumpolys;
 extern unsigned char far* polyinfoptrs[]; // array size = 0x190 
-extern unsigned int word_40ED6[]; // array size = 0x190
+extern unsigned int poly_linked_list_40ED6[]; // array size = 0x190
 
 extern void preRender_default(int color, int vertlinecount, int* vertlines);
 
@@ -783,7 +783,7 @@ int setup_player_cars(void) {
 	word_449E4 = 0;
 	word_443F4 = 0;
 	fontledresptr = file_load_resource(0, "fontled.fnt");//aFontled_fnt); // "fontled.fnt"
-	timertestflag_copy = timertestflag;
+	slow_video_mgmt_copy = slow_video_mgmt;
 	init_rect_arrays();
 	if (idle_expired == 0) {
 		setup_car_shapes(0);
@@ -956,8 +956,8 @@ void run_game(void) {
 				state.game_frame = 0;
 			}
 
-			if (timertestflag_copy != timertestflag) {
-				timertestflag_copy = timertestflag;
+			if (slow_video_mgmt_copy != slow_video_mgmt) {
+				slow_video_mgmt_copy = slow_video_mgmt;
 				init_rect_arrays();
 			}
 
@@ -1056,7 +1056,7 @@ void run_game(void) {
 
 			update_frame(byte_44346, &rect_windshield);
 			if (dastbmp_y != 0 && byte_449E2 != 0) {			
-				if (timertestflag_copy != 0) {
+				if (slow_video_mgmt_copy != 0) {
 					var_rect.left = 0;
 					var_rect.right = 0x140;
 					var_rect.top = dastbmp_y;
@@ -1242,7 +1242,7 @@ void init_main(int argc, char* argv[])
 	kb_shift_checking2();
 	kb_call_readchar_callback();
 
-	kb_reg_callback(0x0007, &do_mrl_textres);
+	kb_reg_callback(0x0007, &show_graphic_levels_menu);
 	kb_reg_callback(0x000A, &do_joy_restext);
 	kb_reg_callback(0x000B, &do_key_restext);
 	kb_reg_callback(0x3200, &do_mof_restext);
@@ -1370,30 +1370,30 @@ void init_main(int argc, char* argv[])
 	
 	timerdelta3 = timer_get_delta_alt();
 	
-	timertestflag = (timerdelta2 <= timerdelta1);
+	slow_video_mgmt = (timerdelta2 <= timerdelta1);
 	framespersec2 = (timerdelta3 >= 75) ? 10 : 20;
 
 	if (timerdelta3 < 35) {
-		timertestflag2 = 0;
+		detail_level = 0;
 	}
 	else if (timerdelta3 < 55) {
-		timertestflag2 = 1;
+		detail_level = 1;
 	}
 	else if (timerdelta3 < 75) {
-		timertestflag2 = 2;
+		detail_level = 2;
 	}
 	else if (timerdelta3 < 100) {
-		timertestflag2 = 3;
+		detail_level = 3;
 	}
-	else if (timertestflag) {
-		timertestflag2 = 4;
+	else if (slow_video_mgmt) {
+		detail_level = 4;
 	}
 	else {
-		timertestflag2 = 3;
+		detail_level = 3;
 	}
 
 	framespersec = framespersec2;
-	timertestflag_copy = timertestflag;
+	slow_video_mgmt_copy = slow_video_mgmt;
 	
 	random_wait();
 	

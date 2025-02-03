@@ -4,9 +4,9 @@ seg006 segment byte public 'STUNTSC' use16
     extrn polyinfo_reset:proc
     extrn select_cliprect_rotate:proc
     extrn transformed_shape_op:proc
-    extrn transformed_shape_op_helper:proc
+    extrn insert_newest_poly_in_poly_linked_list_40ED6:proc
     extrn rect_compare_point:proc
-    extrn transformed_shape_op_helper3:proc
+    extrn is_facing_camera:proc
     extrn get_a_poly_info:proc
     extrn mat_rot_zxy:proc
     extrn rect_adjust_from_point:proc

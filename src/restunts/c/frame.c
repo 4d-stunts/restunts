@@ -20,11 +20,11 @@ extern int word_3B8EC;
 extern int word_3B8F0;
 extern int word_3B8EE;
 extern int word_44D20;
-extern char byte_3C09C[];
+extern char detail_threshold_by_level[];
 extern char byte_3C0C6[];
 extern char word_46468;
 extern int word_3BE34[];
-extern char* off_3C084[];
+extern char* lookahead_tiles_tables[];
 extern struct SHAPE3D* off_3BE44[];
 extern int terrainHeight;
 extern int planindex;
@@ -144,7 +144,7 @@ void update_frame(char arg_0, struct RECTANGLE* arg_cliprectptr) {
 		rectptr_unk = rect_array_unk2;
 	}
 
-	if (timertestflag_copy != 0) {
+	if (slow_video_mgmt_copy != 0) {
 		var_122 = 8;
 		var_rectptr = rect_unk;
 		for (si = 0; si < 15; si++) {
@@ -255,7 +255,7 @@ void update_frame(char arg_0, struct RECTANGLE* arg_cliprectptr) {
 	}
 
 	var_52 = select_cliprect_rotate(var_angZ, var_angX, var_angY, arg_cliprectptr, 0);
-	var_50 = off_3C084[(var_52 & 0x3FF) >> 7];
+	var_50 = lookahead_tiles_tables[(var_52 & 0x3FF) >> 7];
 
 	var_mat = *mat_rot_zxy(var_angZ, var_angX, 0, 1);
 	var_vec6.x = 0;
@@ -268,7 +268,7 @@ void update_frame(char arg_0, struct RECTANGLE* arg_cliprectptr) {
 		var_2 = -1;
 	}
 
-	if (timertestflag2 == 0) {
+	if (detail_level == 0) {
 		currenttransshape[0].rectptr = &rect_unk9;
 		currenttransshape[0].ts_flags = var_122 | 7;
 		currenttransshape[0].rotvec.x = 0;
@@ -301,7 +301,7 @@ void update_frame(char arg_0, struct RECTANGLE* arg_cliprectptr) {
 
 	var_pos2adjust = var_vec4.x >> 0xA;
 	var_posadjust = -((var_vec4.z >> 0xA) - 0x1D);
-	if (timertestflag2 != 0) {
+	if (detail_level != 0) {
 		var_D8 = state.playerstate.car_posWorld1.lx >> 16;
 		var_E2 = 0x1D - (state.playerstate.car_posWorld1.lz >> 16);
 	}
@@ -310,7 +310,7 @@ void update_frame(char arg_0, struct RECTANGLE* arg_cliprectptr) {
 		var_32[si] = 0;
 	}
 
-	var_130 = byte_3C09C[timertestflag2];
+	var_130 = detail_threshold_by_level[detail_level];
 	
 	for (si = 0x16; si >= 0; si--) {
 		if (var_32[si] != 0)
@@ -352,7 +352,7 @@ void update_frame(char arg_0, struct RECTANGLE* arg_cliprectptr) {
 				var_1A[si] = terr_map_value;
 				var_BC[si] = var_50[si * 3 + 2];
 				
-				if (elem_map_value != 0 && timertestflag2 != 0 && 
+				if (elem_map_value != 0 && detail_level != 0 && 
 					trkObjectList[elem_map_value].ss_physicalModel >= 0x40 &&
 					(var_pos2lookup != var_D8 || var_poslookup != var_E2))
 				{
@@ -529,7 +529,7 @@ void update_frame(char arg_0, struct RECTANGLE* arg_cliprectptr) {
 			var_pos2lookupadjust = var_10E[var_multitileflag * 2] + var_pos2lookup;
 			var_poslookupadjust = var_10E[var_multitileflag * 2 + 1] + var_poslookup;
 			
-			if (timertestflag2 == 0 || (var_pos2lookupadjust == var_D8 && var_poslookupadjust == var_E2)) {
+			if (detail_level == 0 || (var_pos2lookupadjust == var_D8 && var_poslookupadjust == var_E2)) {
 				if (var_pos2lookupadjust == 0) {
 					if (var_poslookupadjust == 0) {
 						di = 7;
@@ -867,14 +867,14 @@ void update_frame(char arg_0, struct RECTANGLE* arg_cliprectptr) {
 			curtransshape_ptr->pos.y = (state.playerstate.car_posWorld1.ly >> 6) - var_vec4.y;
 			curtransshape_ptr->pos.z = (state.playerstate.car_posWorld1.lz >> 6) - var_vec4.z;
 			
-			if (var_FC != 0 || timertestflag2 > 2) {
+			if (var_FC != 0 || detail_level > 2) {
 				curtransshape_ptr->shapeptr = var_trkobject_ptr->ss_loShapePtr;
 			} else {
 				curtransshape_ptr->shapeptr = var_trkobject_ptr->ss_shapePtr;
 				sub_204AE(&game3dshapes[0x0AD4 / sizeof(struct SHAPE3D)].shape3d_verts[8], state.playerstate.car_steeringAngle, &state.playerstate.car_rc2, word_443E8, carshapevecs, &carshapevec);
 			}
 
-			if (timertestflag_copy != 0) {
+			if (slow_video_mgmt_copy != 0) {
 				curtransshape_ptr->rectptr = &rect_unk12;
 				curtransshape_ptr->ts_flags = 0xC;
 			} else if (state.playerstate.car_crashBmpFlag != 1) {
@@ -921,14 +921,14 @@ void update_frame(char arg_0, struct RECTANGLE* arg_cliprectptr) {
 				curtransshape_ptr->pos.y = (state.opponentstate.car_posWorld1.ly >> 6) - var_vec4.y;
 				curtransshape_ptr->pos.z = (state.opponentstate.car_posWorld1.lz >> 6) - var_vec4.z;
 
-				if (var_FC != 0 || timertestflag2 > 2) {
+				if (var_FC != 0 || detail_level > 2) {
 					curtransshape_ptr->shapeptr = var_trkobject_ptr->ss_loShapePtr;
 				} else {
 					curtransshape_ptr->shapeptr = var_trkobject_ptr->ss_shapePtr;
 					sub_204AE(&game3dshapes[0x0AEA / sizeof(struct SHAPE3D)].shape3d_verts[8], state.opponentstate.car_steeringAngle, &state.opponentstate.car_rc2, word_4448A, oppcarshapevecs, &oppcarshapevec);
 				}
 
-				if (timertestflag_copy != 0) {
+				if (slow_video_mgmt_copy != 0) {
 					curtransshape_ptr->rectptr = &rect_unk15;
 					curtransshape_ptr->ts_flags = 0xC;
 				} else {
@@ -1041,7 +1041,7 @@ void update_frame(char arg_0, struct RECTANGLE* arg_cliprectptr) {
 		if (var_DC[si] == 0) {
 			continue;
 		}
-		if (timertestflag_copy == 0) {
+		if (slow_video_mgmt_copy == 0) {
 			if (si == 0) {
 				var_rectptr = &var_rect;
 			} else {
@@ -1087,13 +1087,13 @@ void update_frame(char arg_0, struct RECTANGLE* arg_cliprectptr) {
 		}
 
 		if (var_stateptr->car_crashBmpFlag == 1) {
-			if (timertestflag_copy != 0) {
+			if (slow_video_mgmt_copy != 0) {
 				rect_union(init_crak(state.game_frame - si, arg_cliprectptr->top, arg_cliprectptr->bottom - arg_cliprectptr->top), rect_unk, rect_unk);
 			} else {
 				init_crak(state.game_frame - si, arg_cliprectptr->top, arg_cliprectptr->bottom - arg_cliprectptr->top);
 			}
 		} else if (var_stateptr->car_crashBmpFlag == 2) {
-			if (timertestflag_copy != 0) {
+			if (slow_video_mgmt_copy != 0) {
 				rect_union(do_sinking(state.game_frame - si, arg_cliprectptr->top, arg_cliprectptr->bottom - arg_cliprectptr->top), rect_unk, rect_unk);
 			} else {
 				do_sinking(state.game_frame - si, arg_cliprectptr->top, arg_cliprectptr->bottom - arg_cliprectptr->top);
@@ -1105,7 +1105,7 @@ void update_frame(char arg_0, struct RECTANGLE* arg_cliprectptr) {
 		if (state.game_inputmode != 0) {
 			format_frame_as_string(&resID_byte1, elapsed_time1 + elapsed_time2, 0);
 			font_set_fontdef2(fontledresptr);
-			if (timertestflag_copy != 0) {
+			if (slow_video_mgmt_copy != 0) {
 				rect_union(intro_draw_text(&resID_byte1, 0x8C, roofbmpheight + 2, dialog_fnt_colour, 0), &rect_unk11, &rect_unk11);
 			} else {
 				intro_draw_text(&resID_byte1, 0x8C, roofbmpheight + 2, dialog_fnt_colour, 0);
@@ -1115,7 +1115,7 @@ void update_frame(char arg_0, struct RECTANGLE* arg_cliprectptr) {
 		}
 	}
 
-	if (timertestflag_copy != 0) {
+	if (slow_video_mgmt_copy != 0) {
 		rect_union(draw_ingame_text(), rect_unk, rect_unk);
 		if (var_132 != 0) {
 			rect_unk[0] = *arg_cliprectptr;
