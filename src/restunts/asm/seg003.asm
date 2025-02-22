@@ -86,7 +86,7 @@ loc_19F26:
     jz      short loc_19F35
     jmp     loc_1A046
 loc_19F35:
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jnz     short loc_19F3F
     jmp     loc_1A030
 loc_19F3F:
@@ -96,7 +96,7 @@ loc_19F41:
     inc     si
     cmp     si, 0Fh
     jl      short loc_19F41
-    cmp     timertestflag2, 4
+    cmp     detail_level, 4
     jnz     short loc_19F59
     mov     ax, word_463D6
     mov     word_449FE, ax
@@ -204,7 +204,7 @@ loc_1A046:
     add     sp, 4
 loc_1A05E:
     call    mouse_draw_transparent_check
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1A090
     mov     ax, word_463D6
     mov     word_449FE, ax
@@ -245,7 +245,7 @@ init_rect_arrays proc far
     sub     sp, 2
     push    di
     push    si
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1A0EE
     push    si
     mov     di, offset rect_array_unk
@@ -394,7 +394,7 @@ loc_1A122:
     mov     rectptr_unk, offset rect_array_unk
     mov     rectptr_unk2, offset rect_array_unk2
 loc_1A12E:
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1A162
     mov     [bp+var_122], 8
     mov     [bp+var_rectptr], offset rect_unk
@@ -784,7 +784,7 @@ loc_1A512:
     mov     si, ax
     mov     bx, si
     shl     bx, 1
-    mov     ax, off_3C084[bx]
+    mov     ax, lookahead_tiles_tables[bx]
     mov     [bp+var_50], ax
     mov     ax, 1
     push    ax
@@ -822,7 +822,7 @@ loc_1A512:
 loc_1A580:
     mov     [bp+var_2], 0FFFFh
 loc_1A585:
-    cmp     timertestflag2, 0
+    cmp     detail_level, 0
     jz      short loc_1A58F
     jmp     loc_1A66D
 loc_1A58F:
@@ -908,7 +908,7 @@ loc_1A66D:
     sub     al, 1Dh
     neg     al
     mov     [bp+var_posadjust], al
-    cmp     timertestflag2, 0
+    cmp     detail_level, 0
     jz      short loc_1A69D
     mov     al, byte ptr state.playerstate.car_posWorld1.lx+2
     mov     [bp+var_D8], al
@@ -922,9 +922,9 @@ loc_1A69F:
     inc     si
     cmp     si, 17h
     jl      short loc_1A69F
-    mov     bl, timertestflag2
+    mov     bl, detail_level
     sub     bh, bh
-    mov     al, byte_3C09C[bx]
+    mov     al, detail_threshold_by_level[bx]
     mov     [bp+var_130], al
     mov     si, 16h
     jmp     short loc_1A6FF
@@ -1062,7 +1062,7 @@ loc_1A7FF:
     mov     [bp+si+var_BC], al
     cmp     [bp+elem_map_value], 0
     jz      short loc_1A857
-    cmp     timertestflag2, 0
+    cmp     detail_level, 0
     jz      short loc_1A857
     mov     al, [bp+elem_map_value]
     sub     ah, ah
@@ -1761,7 +1761,7 @@ loc_1AE7A:
     mov     al, [bx+1]
     add     al, [bp+var_poslookup]
     mov     [bp+var_poslookupadjust], al
-    cmp     timertestflag2, 0
+    cmp     detail_level, 0
     jnz     short loc_1AEB2
     jmp     loc_1AD5E
 loc_1AEB2:
@@ -2765,7 +2765,7 @@ loc_1B8E7:
     mov     [bx+TRANSFORMEDSHAPE.ts_pos.vz], ax
     cmp     [bp+var_FC], 0
     jnz     short loc_1B903
-    cmp     timertestflag2, 2
+    cmp     detail_level, 2
     jbe     short loc_1B914
 loc_1B903:
     mov     bx, [bp+var_trkobject_ptr]
@@ -2797,7 +2797,7 @@ loc_1B914:
     call    sub_204AE
     add     sp, 0Eh
 loc_1B94A:
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1B964
     mov     bx, curtransshape_ptr
     mov     [bx+TRANSFORMEDSHAPE.ts_rectptr], offset rect_unk12
@@ -3026,7 +3026,7 @@ loc_1BB94:
     mov     [bx+TRANSFORMEDSHAPE.ts_pos.vz], ax
     cmp     [bp+var_FC], 0
     jnz     short loc_1BBB0
-    cmp     timertestflag2, 2
+    cmp     detail_level, 2
     jbe     short loc_1BBC0
 loc_1BBB0:
     mov     bx, [bp+var_trkobject_ptr]
@@ -3056,7 +3056,7 @@ loc_1BBC0:
     call    sub_204AE
     add     sp, 0Eh
 loc_1BBF6:
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1BC10
     mov     bx, curtransshape_ptr
     mov     [bx+TRANSFORMEDSHAPE.ts_rectptr], offset rect_unk15
@@ -3523,7 +3523,7 @@ loc_1C0C2:
     jge     short loc_1C0E8
     cmp     [bp+si+var_DC], 0
     jz      short loc_1C0C1
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jnz     short loc_1C0D8
     jmp     loc_1BFF8
 loc_1C0D8:
@@ -3563,7 +3563,7 @@ loc_1C128:
     mov     bx, [bp+var_stateptr]
     cmp     [bx+CARSTATE.car_crashBmpFlag], 1
     jnz     short loc_1C17C
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1C162
     mov     ax, offset rect_unk
     push    ax
@@ -3603,7 +3603,7 @@ loc_1C17C:
     mov     bx, [bp+var_stateptr]
     cmp     [bx+CARSTATE.car_crashBmpFlag], 2
     jnz     short loc_1C1C6
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1C1AC
     mov     ax, offset rect_unk
     push    ax
@@ -3654,7 +3654,7 @@ loc_1C1DA:
     push    word ptr fontledresptr
     call    font_set_fontdef2
     add     sp, 4
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1C238
     mov     ax, offset rect_unk11
     push    ax
@@ -3694,7 +3694,7 @@ loc_1C238:
 loc_1C256:
     call    font_set_fontdef
 loc_1C25B:
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jnz     short loc_1C265
     jmp     loc_1C2F8
 loc_1C265:
@@ -3801,7 +3801,7 @@ skybox_op_helper2 proc far
     sub     sp, 4
     push    di
     push    si
-    cmp     timertestflag2, 4
+    cmp     detail_level, 4
     jz      short loc_1C320
     mov     si, [bp+arg_4]
     mov     bx, [bp+arg_rectptr]
@@ -3834,7 +3834,7 @@ loc_1C339:
     call    sprite_clear_1_color
     add     sp, 2
 loc_1C35F:
-    cmp     timertestflag2, 4
+    cmp     detail_level, 4
     jnz     short loc_1C369
     jmp     loc_1C432
 loc_1C369:
@@ -4098,7 +4098,7 @@ loc_1C58A:
     db 144
 loc_1C5A6:
     mov     [bp+var_5A], 0
-    cmp     timertestflag2, 4
+    cmp     detail_level, 4
     jz      short loc_1C61D
     cmp     [bp+var_point2.x2], 0
     jge     short loc_1C61D
@@ -4148,7 +4148,7 @@ loc_1C61D:
     jnz     short loc_1C626
     jmp     loc_1C852
 loc_1C626:
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jnz     short loc_1C630
     jmp     loc_1C7B6
 loc_1C630:
@@ -4503,7 +4503,7 @@ loc_1C958:
     push    skybox_sky_color
     call    sprite_clear_1_color
     add     sp, 2
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jnz     short loc_1C99D
     jmp     loc_1CB77
 loc_1C99D:
@@ -4535,9 +4535,9 @@ loc_1C9E4:
     jz      short loc_1C9ED
     jmp     loc_1CB00
 loc_1C9ED:
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1CA25
-    cmp     timertestflag2, 4
+    cmp     detail_level, 4
     jnz     short loc_1CA02
     mov     ax, [bp+var_skyheight]
     dec     ax
@@ -4578,7 +4578,7 @@ loc_1CA54:
     inc     si
     cmp     si, 0Fh
     jl      short loc_1CA54
-    cmp     timertestflag2, 4
+    cmp     detail_level, 4
     jnz     short loc_1CA72
     mov     bx, [bp+arg_0]
     shl     bx, 1
@@ -6013,7 +6013,7 @@ loc_1D636:
     push    [bp+var_10]
     call    preRender_line
     add     sp, 0Ah
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jnz     short loc_1D70F
     jmp     loc_1D78F
 loc_1D70F:
@@ -6432,8 +6432,8 @@ loc_1D9CF:
     call    timer_get_delta
     mov     [bp+var_2AA], 0
     mov     [bp+var_440], 0
-    mov     ax, timertestflag
-    mov     timertestflag_copy, ax
+    mov     ax, slow_video_mgmt
+    mov     slow_video_mgmt_copy, ax
     mov     rect_unk.rc_left, 0
     mov     rect_unk.rc_right, 140h
     mov     rect_unk.rc_top, 0
@@ -6653,7 +6653,7 @@ smart
 nosmart
     mov     [bp+var_2A4], ax
 loc_1DCD1:
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1DCFC
     cmp     [bp+var_rectindex], 0
     jnz     short loc_1DCEC
@@ -6698,7 +6698,7 @@ loc_1DCFC:
     call    mouse_draw_opaque_check
     call    setup_mcgawnd1
     call    mouse_draw_transparent_check
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1DD77
     mov     bx, [bp+var_rectindex]
     mov     cl, 3
@@ -6716,7 +6716,7 @@ loc_1DD77:
     jmp     loc_1DE19
 loc_1DD7E:
     call    sprite_copy_2_to_1_2
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1DDFC
     lea     ax, [bp+var_rect2]
     push    ax
@@ -6901,7 +6901,7 @@ loc_1DEE9:
     mov     ax, 400h
     sub     ax, [bp+arg_4]
     mov     [bp+var_transshape.ts_pos.vz], ax
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1DF16
     lea     ax, [bp+var_rect3]
     mov     [bp+var_transshape.ts_rectptr], ax
@@ -6954,7 +6954,7 @@ loc_1DF7E:
     sub     ax, [bp+arg_4]
     mov     [bp+var_transshape.ts_pos.vz], ax
     mov     [bp+var_transshape.ts_shapeptr], offset bravshape
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1DFA4
     lea     ax, [bp+var_rect3]
     mov     [bp+var_transshape.ts_rectptr], ax
@@ -6975,7 +6975,7 @@ loc_1DFA8:
     call    transformed_shape_op
     add     sp, 2
 loc_1DFCF:
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jnz     short loc_1DFD9
     jmp     loc_1E06C
 loc_1DFD9:
@@ -7109,7 +7109,7 @@ loc_1E0AB:
     push    [bp+var_point.x2]
     call    putpixel_single_maybe
     add     sp, 6
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1E144
     mov     bx, [bp+arg_10]
     mov     ax, di
@@ -7141,13 +7141,13 @@ loc_1E157:
     jge     short loc_1E160
     jmp     loc_1E0AB
 loc_1E160:
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1E16C
     mov     bx, [bp+arg_12]
     mov     [bx], di
 loc_1E16C:
     call    get_a_poly_info
-    cmp     timertestflag_copy, 0
+    cmp     slow_video_mgmt_copy, 0
     jz      short loc_1E19A
     mov     bx, [bp+arg_rectptr]
     push    si

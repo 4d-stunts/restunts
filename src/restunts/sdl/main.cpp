@@ -129,15 +129,7 @@ void preRender_default(int color, int vertlinecount, int* vertlines) {
 extern void shape3d_load_car_shapes(char* carid, char* oppcarid);
 //void shape3d_load_all();
 
-const char* aSInvalidPackTy = "Invalid Pack Type";
-
-const char* aSFileError = "File error";
-const char* aSFileError_0 = "File error 0";
-const char* aSFileError_1 = "File error 1";
-const char* aLocateshape4_4sShapeNotF = "shape not found %-4.4s";
-const char* aLocatesound4_4sSoundNotF = "sound not found %-4.4s";
 char textresprefix = 'e';
-
 
 struct MATRIX mat_x_rot;
 struct MATRIX mat_y_rot;

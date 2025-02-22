@@ -21,12 +21,12 @@ X   126 vector_op_unk2 (14)
 X    97 vector_to_point (0)
 X    32 rect_compare_point (0)
 X    40 vector_op_unk (0)
-X    86 transformed_shape_op_helper3 (4)
+X    86 is_facing_camera (4)
 X    33 rect_adjust_from_point(0)
 X    47 polarRadius2D (6)
 X    13 polarRadius3D (4)
-X     7 transformed_shape_op_helper2 (0)
-X    74 transformed_shape_op_helper (0)
+X     7 projectiondata9_times_ratio (0)
+X    74 insert_newest_poly_in_poly_linked_list_40ED6 (0)
 X     - polarAngle (0)
 X     - mat_rot_z (4)
 X     - mat_rot_x (4)
@@ -91,9 +91,9 @@ void shape3d_init_shape(char far* shapeptr, struct SHAPE3D* gameshape) {
 }
 
 
-extern char transformed_shape_op_helper3(struct POINT2D far*);
-extern unsigned transformed_shape_op_helper(unsigned, unsigned);
-extern unsigned transformed_shape_op_helper2(unsigned, int);
+extern char is_facing_camera(struct POINT2D far*);
+extern unsigned insert_newest_poly_in_poly_linked_list_40ED6(unsigned, unsigned);
+extern unsigned projectiondata9_times_ratio(unsigned, int);
 extern void __aFuldiv();
 
 extern unsigned word_40ECE;
@@ -108,7 +108,7 @@ extern struct MATRIX mat_temp;
 extern long invpow2tbl[32];
 extern unsigned char byte_4393D;
 extern unsigned word_4394E;
-extern unsigned word_45D98;
+extern unsigned poly_linked_list_40ED6_tail;
 extern unsigned word_4554A;
 extern unsigned word_443F2;
 extern unsigned char transshapenumvertscopy;
@@ -254,7 +254,7 @@ unsigned transformed_shape_op(struct TRANSFORMEDSHAPE3D* arg_transshapeptr) {
 	
 // loc_250A3:
 	word_4394E = word_443F2;
-	word_45D98 = word_443F2;
+	poly_linked_list_40ED6_tail = word_443F2;
 	word_4554A = 0;
 	var_45E = 0;
 	
@@ -520,7 +520,7 @@ loc_25077:
 loc_250A3:
     mov     ax, word_443F2
     mov     word_4394E, ax
-    mov     word_45D98, ax
+    mov     poly_linked_list_40ED6_tail, ax
     mov     word_4554A, 0
     mov     word ptr [var_45E], 0
     cmp     transshapenumverts, 8
@@ -1473,7 +1473,7 @@ loc_2571A:
 	if ((var_primitiveflags & 1) != 0) goto loc_25760;
 	if ((var_A & *var_cull2) != 0) goto loc_25760;
 	
-	if (transformed_shape_op_helper3(transshapepolyinfo + 6) == 0) goto loc_25763;
+	if (is_facing_camera(transshapepolyinfo + 6) == 0) goto loc_25763;
 
 /*asm {
     cmp     transshapenumvertscopy, 0
@@ -1499,7 +1499,7 @@ loc_2572E:
     push    dx
     push    ax
     ;push    cs
-    call far ptr transformed_shape_op_helper3
+    call far ptr is_facing_camera
     add     sp, 4
     or      al, al
     jz      short loc_25763
@@ -1888,7 +1888,7 @@ _primtype_wheel:
 	transshapepolyinfopts[2] = *polyvertpointptrtab[2];
 	transshapepolyinfopts[3] = *polyvertpointptrtab[3];
 
-	if (transformed_shape_op_helper3(transshapepolyinfopts) != 0) goto loc_25A7C;
+	if (is_facing_camera(transshapepolyinfopts) != 0) goto loc_25A7C;
 
 	transshapepolyinfopts[0] = *polyvertpointptrtab[3];
 	transshapepolyinfopts[1] = *polyvertpointptrtab[4];
@@ -1932,7 +1932,7 @@ loc_25997:
     add     ax, 6
     push    dx
     push    ax
-    call far ptr transformed_shape_op_helper3
+    call far ptr is_facing_camera
     add     sp, 4
     or      al, al
     jnz     short loc_25A7C
@@ -2144,7 +2144,7 @@ _primtype_sphere:
 	var_vec2.x = var_vec3.x - var_vec4.x;
 	var_vec2.y = var_vec3.y - var_vec4.y;
 	var_vec2.z = var_vec3.z - var_vec4.z;
-	var_462 = transformed_shape_op_helper2(polarRadius3D(&var_vec2), var_vec3.z);
+	var_462 = projectiondata9_times_ratio(polarRadius3D(&var_vec2), var_vec3.z);
 	transshapepolyinfopts[1].px = var_462;
 	if ((transshapeflags & 8) == 0) goto loc_25983;
 
@@ -2243,7 +2243,7 @@ loc_25C01:
     call    far ptr polarRadius3D
     add     sp, 2
     push    ax
-    call    far ptr transformed_shape_op_helper2
+    call    far ptr projectiondata9_times_ratio
     add     sp, 4
     mov     [var_462], ax
     
@@ -2365,7 +2365,7 @@ loc_25D3C:
 	} else
 		temp = 1;
 
-	word_40ECE = transformed_shape_op_helper(temp0, temp);
+	word_40ECE = insert_newest_poly_in_poly_linked_list_40ED6(temp0, temp);
 	
 	if (word_40ECE == 0) goto loc_25E04;
 	return 1;
@@ -2470,7 +2470,7 @@ loc_25DEE:
 loc_25DF1:
     push    ax
     push    si
-    call far ptr transformed_shape_op_helper
+    call far ptr insert_newest_poly_in_poly_linked_list_40ED6
     add     sp, 4
     mov     word_40ECE, ax
     or      ax, ax
@@ -2530,7 +2530,7 @@ return result;
 
 
 // parameter points to a far array of 2d points
-char transformed_shape_op_helper3(struct POINT2D far* pts) {
+char is_facing_camera(struct POINT2D far* pts) {
 	long dx0, dy0, dx1, dy1;
 	long temp;
 
@@ -2558,23 +2558,23 @@ extern unsigned projectiondata8;
 extern unsigned projectiondata9;
 extern unsigned projectiondata10;
 
-unsigned transformed_shape_op_helper2(unsigned i1, int i2) {
+unsigned projectiondata9_times_ratio(unsigned i1, int i2) {
 	return projectiondata9 * i1 / i2;
 }
 
-extern int word_40ED6[];
+extern int poly_linked_list_40ED6[];
 
-extern unsigned transformed_shape_op_helper(unsigned arg_0, unsigned arg_2) {
+extern unsigned insert_newest_poly_in_poly_linked_list_40ED6(unsigned arg_0, unsigned arg_2) {
 	unsigned result;
 	int regdi, regsi, regax;
 
-	//return ported_transformed_shape_op_helper_(arg_0, arg_2);
+	//return ported_insert_newest_poly_in_poly_linked_list_40ED6_(arg_0, arg_2);
 
 	if (arg_2 == 0) {
-		regdi = word_40ED6[word_45D98];
+		regdi = poly_linked_list_40ED6[poly_linked_list_40ED6_tail];
 	} else {
-		word_45D98 = word_4394E;
-		regdi = word_40ED6[word_4394E];
+		poly_linked_list_40ED6_tail = word_4394E;
+		regdi = poly_linked_list_40ED6[word_4394E];
 		regsi = word_4554A;
 
 		while (regdi >= 0) {
@@ -2582,18 +2582,18 @@ extern unsigned transformed_shape_op_helper(unsigned arg_0, unsigned arg_2) {
 			regsi--;
 			if (regax == 0) break;
 			if (polyinfoptrs[regdi][0] < (int)arg_0) break;
-			word_45D98 = regdi;
-			regdi = word_40ED6[regdi];
+			poly_linked_list_40ED6_tail = regdi;
+			regdi = poly_linked_list_40ED6[regdi];
 		}
 	}
 
-	word_40ED6[polyinfonumpolys] = regdi;
-	word_40ED6[word_45D98] = polyinfonumpolys;
+	poly_linked_list_40ED6[polyinfonumpolys] = regdi;
+	poly_linked_list_40ED6[poly_linked_list_40ED6_tail] = polyinfonumpolys;
 	word_4554A++;
 	if (regdi < 0) {
 		word_443F2 = polyinfonumpolys;
 	}
-	word_45D98 = word_40ED6[word_45D98];
+	poly_linked_list_40ED6_tail = poly_linked_list_40ED6[poly_linked_list_40ED6_tail];
 	polyinfonumpolys++;
 	polyinfoptrnext += (transshapenumvertscopy * sizeof(struct POINT2D)) + 6; // TODO: sizeof POINT2D?
 	if (polyinfonumpolys == 0x190) return 1;
@@ -2647,7 +2647,7 @@ void polyinfo_reset(void) {
 	polyinfonumpolys = 0;
 	polyinfoptrnext = 0;
 	word_40ECE = 0;
-	word_40ED6[0x190] = 0xFFFF;
+	poly_linked_list_40ED6[0x190] = 0xFFFF;
 	word_443F2 = 0x190;
 }
 
@@ -2688,7 +2688,7 @@ void get_a_poly_info(void) {
 	regdi = 0x190;
 	counter = 0;
 	while (counter < polyinfonumpolys) {
-		regdi = word_40ED6[regdi];
+		regdi = poly_linked_list_40ED6[regdi];
 		polyinfoptr = polyinfoptrs[regdi];
 		materialtype = polyinfoptr[2];
 

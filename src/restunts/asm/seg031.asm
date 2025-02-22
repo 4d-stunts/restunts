@@ -159,7 +159,7 @@ loc_39E63:
     call    kb_shift_checking2
 loc_39E68:
     call    kb_call_readchar_callback
-    mov     ax, offset do_mrl_textres
+    mov     ax, offset show_graphic_levels_menu
     mov     dx, seg seg008
     push    dx
 loc_39E74:
@@ -513,10 +513,10 @@ loc_3A1B6:
     mov     ax, [bp+var_timerdelta1]
     cmp     [bp+var_timerdelta2], ax
     jle     short loc_3A1CE
-    mov     timertestflag, 0
+    mov     slow_video_mgmt, 0
     jmp     short loc_3A1D4
 loc_3A1CE:
-    mov     timertestflag, 1
+    mov     slow_video_mgmt, 1
 loc_3A1D4:
     cmp     [bp+var_timerdelta3], 4Bh ; 'K'
     jge     short loc_3A1E2
@@ -527,39 +527,39 @@ loc_3A1E2:
 loc_3A1E8:
     cmp     [bp+var_timerdelta3], 23h ; '#'
     jge     short loc_3A1F6
-    mov     timertestflag2, 0
+    mov     detail_level, 0
     jmp     short loc_3A22B
     ; align 2
     db 144
 loc_3A1F6:
     cmp     [bp+var_timerdelta3], 37h ; '7'
     jge     short loc_3A204
-    mov     timertestflag2, 1
+    mov     detail_level, 1
     jmp     short loc_3A22B
     ; align 2
     db 144
 loc_3A204:
     cmp     [bp+var_timerdelta3], 4Bh ; 'K'
     jge     short loc_3A212
-    mov     timertestflag2, 2
+    mov     detail_level, 2
     jmp     short loc_3A22B
     ; align 2
     db 144
 loc_3A212:
     cmp     [bp+var_timerdelta3], 64h ; 'd'
     jl      short loc_3A21F
-    cmp     timertestflag, 0
+    cmp     slow_video_mgmt, 0
     jnz     short loc_3A226
 loc_3A21F:
-    mov     timertestflag2, 3
+    mov     detail_level, 3
     jmp     short loc_3A22B
 loc_3A226:
-    mov     timertestflag2, 4
+    mov     detail_level, 4
 loc_3A22B:
     mov     ax, framespersec2
     mov     framespersec, ax
-    mov     ax, timertestflag
-    mov     timertestflag_copy, ax
+    mov     ax, slow_video_mgmt
+    mov     slow_video_mgmt_copy, ax
     push    cs
     call near ptr ported_random_wait_
     sub     ax, ax

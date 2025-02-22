@@ -87,7 +87,7 @@ dseg segment byte public 'STUNTSD' use16
     public byte_3B8F7
     public kbormouse
     public mouse_isdirty
-    public timertestflag2
+    public detail_level
     public g_is_busy
     public byte_3B8FC
     public aKevin
@@ -300,9 +300,9 @@ dseg segment byte public 'STUNTSD' use16
     public unk_3C03E
     public unk_3C071
     public unk_3C072
-    public off_3C084
+    public lookahead_tiles_tables
     public rect_unk5
-    public byte_3C09C
+    public detail_threshold_by_level
     public unk_3C0A2
     public unk_3C0A6
     public unk_3C0AE
@@ -1099,7 +1099,7 @@ dseg segment byte public 'STUNTSD' use16
     public word_40ECE
     public select_rect_param
     public polyinfoptr
-    public word_40ED6
+    public poly_linked_list_40ED6
     public word_411F6
     public polyinfoptrs
     public mat_y0
@@ -1266,7 +1266,7 @@ dseg segment byte public 'STUNTSD' use16
     public oppcarshapevecs2
     public oppcarshapevecs3
     public oppcarshapevecs4
-    public timertestflag_copy
+    public slow_video_mgmt_copy
     public pState_minusRotate_x_1
     public elRdWallRelated
     public regs_x86
@@ -1320,7 +1320,7 @@ dseg segment byte public 'STUNTSD' use16
     public idle_expired
     public video_flag1_is1
     public td11_highscores
-    public timertestflag
+    public slow_video_mgmt
     public mainresptr
     public bravshape
     public byte_44D06
@@ -1436,7 +1436,7 @@ dseg segment byte public 'STUNTSD' use16
     public material_patlist2_ptr_cpy
     public word_45D94
     public wallOrientation
-    public word_45D98
+    public poly_linked_list_40ED6_tail
     public byte_45D9A
     public game_replay_mode
     public td08_direction_related
@@ -1880,7 +1880,7 @@ byte_3B8F6     db 0
 byte_3B8F7     db 0
 kbormouse     db 0
 mouse_isdirty     db 0
-timertestflag2     db 0
+detail_level     db 0
 g_is_busy     db 0
 byte_3B8FC     db 0
     db 0
@@ -3694,7 +3694,7 @@ unk_3C072     db 0
     db 0
     db 0
     db 0
-off_3C084     dw offset unk_3BE9A
+lookahead_tiles_tables     dw offset unk_3BE9A
     dw offset unk_3BEE0
     dw offset unk_3BF26
     dw offset unk_3BF6C
@@ -3710,7 +3710,7 @@ rect_unk5     db 0
     db 0
     db 200
     db 0
-byte_3C09C     db 2
+detail_threshold_by_level     db 2
     db 2
     db 1
     db 0
@@ -22281,7 +22281,7 @@ transshapepolyinfo     dd 0
 word_40ECE     dw 0
 select_rect_param     dw 0
 polyinfoptr     dd 0
-word_40ED6     dw 0
+poly_linked_list_40ED6     dw 0
     dw 0
     dw 0
     dw 0
@@ -35326,7 +35326,7 @@ oppcarshapevecs4     db 0
     db 0
     db 0
     db 0
-timertestflag_copy     dw 0
+slow_video_mgmt_copy     dw 0
 pState_minusRotate_x_1     dw 0
 elRdWallRelated     dw 0
 regs_x86     db 0
@@ -36112,7 +36112,7 @@ video_flag1_is1     dw 0
     db 0
     db 0
 td11_highscores     dd 0
-timertestflag     dw 0
+slow_video_mgmt     dw 0
 mainresptr     dd 0
 bravshape     db 0
     db 0
@@ -40165,7 +40165,7 @@ byte_45D90     db 0
 material_patlist2_ptr_cpy     dw 0
 word_45D94     dw 0
 wallOrientation     dw 0
-word_45D98     dw 0
+poly_linked_list_40ED6_tail     dw 0
 byte_45D9A     db 0
     db 0
     db 0

@@ -254,7 +254,7 @@ seg012 segment byte public 'STUNTSC' use16
     public nopsub_32738
     public nopsub_32746
     public nopsub_32751
-    public transformed_shape_op_helper2
+    public projectiondata9_times_ratio
     public nopsub_3276A
     public timer_get_counter
     public timer_custom_delta
@@ -8703,7 +8703,7 @@ nopsub_32751 proc far
     pop     bp
     retf
 nopsub_32751 endp
-transformed_shape_op_helper2 proc far
+projectiondata9_times_ratio proc far
      s = byte ptr 0
      r = byte ptr 2
     arg_0 = word ptr 6
@@ -8716,7 +8716,7 @@ transformed_shape_op_helper2 proc far
     div     [bp+arg_2]
     pop     bp
     retf
-transformed_shape_op_helper2 endp
+projectiondata9_times_ratio endp
 nopsub_3276A proc far
      s = byte ptr 0
      r = byte ptr 2

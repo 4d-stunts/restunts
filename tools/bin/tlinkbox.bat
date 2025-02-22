@@ -12,7 +12,8 @@ echo type tlinkbox.out >>tlink.dosbox.conf
 echo pause >>tlink.dosbox.conf
 echo :noerror >>tlink.dosbox.conf
 echo exit >>tlink.dosbox.conf
-dosbox -conf tlink.dosbox.conf
+set SDL_VIDEODRIVER=dummy
+dosbox -conf tlink.dosbox.conf -noconsole
 del tlink.dosbox.conf 2>nul
 type tlinkbox.out
 del tlinkbox.out 2>nul

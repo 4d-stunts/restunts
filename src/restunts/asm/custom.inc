@@ -119,8 +119,8 @@ extrn shape3d_load_all:proc
 extrn shape3d_free_all:proc
 extrn shape3d_init_shape:proc
 extrn transformed_shape_op:proc
-extrn transformed_shape_op_helper2:proc
-extrn transformed_shape_op_helper3:proc
+extrn projectiondata9_times_ratio:proc
+extrn is_facing_camera:proc
 ;extrn get_a_poly_info:proc
 extrn preRender_default:proc
 extrn preRender_default_alt:proc

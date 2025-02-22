@@ -207,7 +207,7 @@ seg012 segment byte public 'STUNTSC' use16
     extrn nopsub_32738:proc
     extrn nopsub_32746:proc
     extrn nopsub_32751:proc
-    extrn ported_transformed_shape_op_helper2_:proc
+    extrn ported_projectiondata9_times_ratio_:proc
     extrn nopsub_3276A:proc
     extrn ported_timer_get_counter_:proc
     extrn ported_timer_custom_delta_:proc

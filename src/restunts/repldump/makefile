@@ -39,7 +39,7 @@ ASM = tasmbox /m2 /s
 CC = bcc  $(RESTUNTS_CFLAGS) $(CFLAGS)
 LINK = call tlinkbox
 
-repldump.exe: $(OBJDIR)\repldump.obj
+repldump.exe: $(OBJDIR)\repldump.obj $(RESTUNTS_OBJFILES)
 	echo $(CTARGETS) > restunts.lnk
 	echo $(OUTFILE) >> restunts.lnk
 	$(LINK) /s /P- /v /js:\tools\lib\ @restunts.lnk

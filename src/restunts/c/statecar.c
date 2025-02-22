@@ -47,7 +47,7 @@ void update_car_speed(char arg_carInputByte, int arg_MplayerFlag, struct CARSTAT
 	int var_deltaSpeed;
 	unsigned char var_currTorque;
 
-	//return ported_update_car_speed_(arg_carInputByte, arg_MplayerFlag, arg_carState, arg_simd);
+	return ported_update_car_speed_(arg_carInputByte, arg_MplayerFlag, arg_carState, arg_simd);
 	
 	if (framespersec != 0x14)
 		goto loc_17A8E;
