@@ -1,2 +1,2 @@
-set PATH=%PATH%;%~dp0\bin
+set PATH=%~dp0\bin;%PATH%
 set WATCOM=%~dp0
